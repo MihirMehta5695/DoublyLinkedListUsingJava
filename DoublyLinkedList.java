@@ -8,6 +8,7 @@ public class DoublyLinkedList
 	Node p;//The primary variable of type Node to be used for all operations regarding SinglyLinkedList
 	boolean isListExisting=false;//flag for checking existence of the list
 	boolean isListEmpty=true;//flag for checking if list is empty
+	//completed declaration
 	
 	//Creating a list
 	void createList()
@@ -18,6 +19,7 @@ public class DoublyLinkedList
 		isListExisting=true;
 
 	}//end of createList(.) method
+	//completed createList(.) method
 
 	void insertAtEnd(int value)
 	{
@@ -32,7 +34,7 @@ public class DoublyLinkedList
 		{
 
 			insertAtBegin(value);
-			System.out.println("Value inserted successfully");
+			System.out.println("Value inserted successfully at the beginning as the list is empty!");
 			return;
 
 		}//end of if
@@ -53,37 +55,43 @@ public class DoublyLinkedList
 			p.next=temp;//variable 'p' points towards newly created node
 			isListEmpty=false;
 			isListExisting=true;
-		}
+		}//end of else stmt
 
 
 	}//end of insertAtEnd(.) method
+	//completed insertAtEnd(.) method
 	
 	void insertAtBegin(int value)
 	{
-		if(isListExisting)
+		if(isListExisting)//checking whether the list is even created or not
 		{
+			
 			temp=new Node(value);
 			p=head.next;
-			p=p.next;
-			temp.next=head.next;//making the first node of the list as the second node of the list , since we are inserting node at the beginning
+			temp.next=p;//making the first node of the list as the second node of the list , since we are inserting node at the beginning
 			head.next=temp;//head now points to the newly created node
 			temp.prev=head;
 			p.prev=temp;
 			isListEmpty=false;
 			isListExisting=true;
+			
 		}//end of if stmt
 		
 		else
 		{
+			
 			System.out.println("Error: No list Exists,please create a new list and try again");
-		}
+			
+		}//end of else stmt
 		
 		
 	}//end of insertAtBegin(.) method
+	//completed insertAtBegin stmt
 	
 	void insertAfter(int key,int value)
 	{
-		if(isListExisting)
+
+		if(isListExisting)//checking whether the list even exists or not
 		{
 			
 			p=head.next;//assigning the value of first node to variable 'p'
@@ -97,6 +105,8 @@ public class DoublyLinkedList
 					temp.next=p.next;
 					p.next=temp;
 					temp.prev=p;
+					p=temp.next;
+					p.prev=temp;
 					return;
 					
 				}//end of if stmt
@@ -117,6 +127,8 @@ public class DoublyLinkedList
 						temp.next=p.next;
 						p.next=temp;
 						temp.prev=p;
+						p=temp.next;
+						p.prev=temp;
 						return;
 						
 					}//end of if stmt
@@ -128,12 +140,12 @@ public class DoublyLinkedList
 						insertAtEnd(value);
 						return;
 						
-					}//end of else stmt
+					}//end of if stmt
 					
 					
 				}//end of else stmt
 				
-			}//end of while stmt
+			}//end of while loop
 			
 		}//end of if stmt
 		
@@ -146,6 +158,7 @@ public class DoublyLinkedList
 		
 		
 	}//end of insertAfter(..)
+	//completed
 	
 	void displayList()
 	{
@@ -172,7 +185,8 @@ public class DoublyLinkedList
 		}
 		
 	}//end of displayList() method
-		
+	//completed	
+	
 	void findPosition(int value)//Find the position of a node with first occurance of a particular value with respect to head node
 	{
 		if(isListExisting&&!isListEmpty)
@@ -221,15 +235,18 @@ public class DoublyLinkedList
 		}//end of else stmt
 			
 	}//end of findPosition(.) method
+	//completed
 	
 	void deleteAtBegin()
 	{
 		if(isListExisting&&!isListEmpty)
 		{
 			
-			p=head.next;//the node to be deleted is represented by temp;
-			head.next=p.next;
-			p=null;//deleting the node
+			temp=head.next;//the node to be deleted is represented by temp;
+			head.next=temp.next;
+			p=temp.next;
+			p.prev=head;
+			temp=null;//deleting the node
 			return;
 			
 		}//end of if stmt
@@ -242,6 +259,7 @@ public class DoublyLinkedList
 		}//end of else stmt
 			
 	}//end of deleteAtBegin() method
+	//completed
 
 	void deleteAtEnd()
 	{
@@ -251,10 +269,10 @@ public class DoublyLinkedList
 			p=head.next;
 			while(p.next!=null)
 			{
-				temp=p;
 				p=p.next;
 			}//end of while loop
 			
+			temp=p.prev;
 			temp.next=p.next;
 			p=null;
 			return;
@@ -268,6 +286,7 @@ public class DoublyLinkedList
 		}//end of else stmt
 		
 	}//end of deleteAtEnd() method
+	//completed
 
 	void deleteValue(int key)
 	{

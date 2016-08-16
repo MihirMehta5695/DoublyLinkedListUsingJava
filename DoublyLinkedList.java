@@ -67,7 +67,16 @@ public class DoublyLinkedList
 		{
 			
 			temp=new Node(value);
-			p=head.next;
+			if(head.next==null)
+			{
+				
+				temp.prev=head;
+				head.next=temp;
+				isListEmpty=false;
+				return;
+								
+			}
+			temp.next=head.next;
 			temp.next=p;//making the first node of the list as the second node of the list , since we are inserting node at the beginning
 			head.next=temp;//head now points to the newly created node
 			temp.prev=head;
@@ -95,6 +104,25 @@ public class DoublyLinkedList
 		{
 			
 			p=head.next;//assigning the value of first node to variable 'p'
+			
+			if(p.data==key)
+			{
+				temp=new Node(value);
+				temp.next=p.next;
+				temp.prev=p;
+				p.next=temp;
+				if(temp.next!=null)
+				{
+					p=temp.next;
+					p.prev=temp;
+					return;
+				}//end of if stmt
+				temp.next=null;
+				
+				return;
+				
+			}//end of if stmt
+			
 			while(true)
 			{
 				
@@ -267,6 +295,14 @@ public class DoublyLinkedList
 		{
 			
 			p=head.next;
+			if(p.next==null)
+			{
+				
+				deleteAtBegin();
+				isListEmpty=true;
+				return;
+				
+			}//end of if stmt
 			while(p.next!=null)
 			{
 				p=p.next;
@@ -286,7 +322,7 @@ public class DoublyLinkedList
 		}//end of else stmt
 		
 	}//end of deleteAtEnd() method
-	//completed
+	//completed 
 
 	void deleteValue(int key)
 	{
@@ -305,7 +341,10 @@ public class DoublyLinkedList
 			{
 				if(p.data==key)
 				{
+					temp=p.prev;
 					temp.next=p.next;
+					temp=p.next;
+					temp.prev=p.prev;
 					p=null;
 					return;
 				}//end of if stmt
@@ -315,24 +354,31 @@ public class DoublyLinkedList
 					
 					if(p.next!=null)
 					{
-						temp=p;//making temp hold value of p;
+						
 						p=p.next;
 						continue;
+						
 					}//end of if stmt
 					
 					if(p.next==null)
 					{
 						if(p.data==key)
 						{
+							temp=p.prev;
 							temp.next=p.next;
+							temp=p.next;
+							temp.prev=p.prev;
 							p=null;
 							return;
+							
 						}//end of if stmt
 						
 						else
 						{
+							
 							System.out.println("Error : no such node with given value exists");
 							return;
+							
 						}//end of else stmt
 						
 					}//end of if stmt
@@ -353,7 +399,8 @@ public class DoublyLinkedList
 		}//end of else stmt
 		
 		
-	}//end of deleteAfter(.) method
+	}//end of deleteValue(.) method
+	//Completed deleteValue(.) method
 
 	void vanishList()
 	{
@@ -361,6 +408,43 @@ public class DoublyLinkedList
 		head=null;
 		isListEmpty=true;
 		isListExisting=false;
-	}
+	}//end of vanishList() method
+	//Completed vanishList() method
+	
+	void displayListReverse()
+	{
+		
+		if(isListExisting&&!isListEmpty)
+		{
+			p=head.next;
+			System.out.println("\n\n\nThe List in reverse order is as : ");
+			while(p.next!=null)
+			{
+				
+				p=p.next;
+				
+			}//end of while stmt
+			
+			while(p.prev!=head)
+			{
+				
+				System.out.println(p.data);
+				p=p.prev;
+				
+			}//end of while stmt
+			
+			System.out.println(p.data);
+									
+		}//end of if stmt
+		
+		else
+		{
+			
+			System.out.println("The List is either Empty or Not Existing yet,pls try again !");
+			
+		}//end of else stmt
+		
+	}//end of displayListReverse()
+	//completed displayListReverse()
 	
 }//end of DoublyLinkedList class{}

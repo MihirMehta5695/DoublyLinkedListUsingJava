@@ -380,7 +380,7 @@ public class DoublyLinkedList
 			{
 				if(p.data==key)
 				{
-					if(p.data==key)
+					if(p.next==null)
 					{
 						deleteAtEnd();
 						return;
@@ -406,6 +406,7 @@ public class DoublyLinkedList
 					}//end of if stmt
 					
 					System.out.println("No value exists in List!");
+					break;
 																	
 				}//end of else statement
 				

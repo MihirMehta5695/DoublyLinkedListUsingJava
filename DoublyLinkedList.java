@@ -42,7 +42,6 @@ public class DoublyLinkedList
 		else
 		{
 			p=head.next;//assigning the first node to be represented by the variable 'p'
-
 			while(p.next!=null)//traverse to the end of the list 
 			{
 				 
@@ -55,6 +54,7 @@ public class DoublyLinkedList
 			p.next=temp;//variable 'p' points towards newly created node
 			isListEmpty=false;
 			isListExisting=true;
+			return;
 		}//end of else stmt
 
 
@@ -66,16 +66,20 @@ public class DoublyLinkedList
 		if(isListExisting)//checking whether the list is even created or not
 		{
 			
-			temp=new Node(value);
-			if(head.next==null)
+			if(isListEmpty)
 			{
+				temp=new Node(value);
+				if(head.next==null)//special case if list is empty
+				{
+					
+					temp.prev=head;
+					head.next=temp;
+					isListEmpty=false;
+					return;
+									
+				}//end of if stmt
 				
-				temp.prev=head;
-				head.next=temp;
-				isListEmpty=false;
-				return;
-								
-			}
+			}//end of if stmt
 			temp.next=head.next;
 			temp.next=p;//making the first node of the list as the second node of the list , since we are inserting node at the beginning
 			head.next=temp;//head now points to the newly created node
@@ -83,6 +87,7 @@ public class DoublyLinkedList
 			p.prev=temp;
 			isListEmpty=false;
 			isListExisting=true;
+			return;
 			
 		}//end of if stmt
 		
@@ -103,50 +108,43 @@ public class DoublyLinkedList
 		if(isListExisting)//checking whether the list even exists or not
 		{
 			
-			p=head.next;//assigning the value of first node to variable 'p'
-			
-			if(p.data==key)
+			if(isListEmpty)
 			{
-				temp=new Node(value);
-				temp.next=p.next;
-				temp.prev=p;
-				p.next=temp;
-				if(temp.next!=null)
-				{
-					p=temp.next;
-					p.prev=temp;
-					return;
-				}//end of if stmt
-				temp.next=null;
 				
-				return;
+				if(head.next==null)
+				{
+					
+					System.out.println("Warning: Since the list is Empty Inserting value at Beginning!");
+					insertAtBegin(value);
+					return;
+					
+				}//end of if stmt
 				
 			}//end of if stmt
-			
-			while(true)
+			else
 			{
 				
+				p=head.next;//assigning the value of first node to variable 'p'
 				if(p.data==key)
 				{
-					
 					temp=new Node(value);
 					temp.next=p.next;
-					p.next=temp;
 					temp.prev=p;
-					p=temp.next;
-					p.prev=temp;
+					p.next=temp;
+					if(temp.next!=null)
+					{
+						p=temp.next;
+						p.prev=temp;
+						return;
+					}//end of if stmt
+					temp.next=null;
+					
 					return;
 					
 				}//end of if stmt
 				
-				else
+				while(true)
 				{
-					if(p.next!=null)
-					{
-						
-						p=p.next;
-						continue;
-					}//end of if stmt
 					
 					if(p.data==key)
 					{
@@ -161,22 +159,45 @@ public class DoublyLinkedList
 						
 					}//end of if stmt
 					
-					if(!isListEmpty)
+					else
 					{
+						if(p.next!=null)
+						{
+							
+							p=p.next;
+							continue;
+						}//end of if stmt
 						
-						System.out.println("Error: there exists no value so inserting the node at the end of the list! ");
-						insertAtEnd(value);
-						return;
+						if(p.data==key)
+						{
+							
+							temp=new Node(value);
+							temp.next=p.next;
+							p.next=temp;
+							temp.prev=p;
+							p=temp.next;
+							p.prev=temp;
+							return;
+							
+						}//end of if stmt
 						
-					}//end of if stmt
+						if(!isListEmpty)
+						{
+							
+							System.out.println("Error: there exists no value so inserting the node at the end of the list! ");
+							insertAtEnd(value);
+							return;
+							
+						}//end of if stmt
+						
+						
+					}//end of else stmt
 					
-					
-				}//end of else stmt
+				}//end of while loop
 				
-			}//end of while loop
+			}//end of else stmt
 			
 		}//end of if stmt
-		
 		else
 		{
 			

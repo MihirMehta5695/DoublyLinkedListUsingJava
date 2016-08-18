@@ -80,8 +80,9 @@ public class DoublyLinkedList
 				}//end of if stmt
 				
 			}//end of if stmt
+			temp=new Node(value);
 			temp.next=head.next;
-			temp.next=p;//making the first node of the list as the second node of the list , since we are inserting node at the beginning
+			p=temp.next;//making the first node of the list as the second node of the list , since we are inserting node at the beginning
 			head.next=temp;//head now points to the newly created node
 			temp.prev=head;
 			p.prev=temp;

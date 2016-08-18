@@ -138,7 +138,6 @@ public class DoublyLinkedList
 						return;
 					}//end of if stmt
 					temp.next=null;
-					
 					return;
 					
 				}//end of if stmt
@@ -148,13 +147,17 @@ public class DoublyLinkedList
 					
 					if(p.data==key)
 					{
-						
 						temp=new Node(value);
 						temp.next=p.next;
-						p.next=temp;
 						temp.prev=p;
-						p=temp.next;
-						p.prev=temp;
+						p.next=temp;
+						if(temp.next!=null)
+						{
+							p=temp.next;
+							p.prev=temp;
+							return;
+						}//end of if stmt
+						temp.next=null;
 						return;
 						
 					}//end of if stmt
@@ -170,13 +173,17 @@ public class DoublyLinkedList
 						
 						if(p.data==key)
 						{
-							
 							temp=new Node(value);
 							temp.next=p.next;
-							p.next=temp;
 							temp.prev=p;
-							p=temp.next;
-							p.prev=temp;
+							p.next=temp;
+							if(temp.next!=null)
+							{
+								p=temp.next;
+								p.prev=temp;
+								return;
+							}//end of if stmt
+							temp.next=null;
 							return;
 							
 						}//end of if stmt
@@ -293,9 +300,19 @@ public class DoublyLinkedList
 			
 			temp=head.next;//the node to be deleted is represented by temp;
 			head.next=temp.next;
-			p=temp.next;
-			p.prev=head;
+			if(temp.next!=null)
+			{
+				
+				p=temp.next;
+				p.prev=head;
+				temp=null;
+				return;
+				
+			}//end of if stmt
+			
 			temp=null;//deleting the node
+			head.next=null;
+			isListEmpty=true;
 			return;
 			
 		}//end of if stmt

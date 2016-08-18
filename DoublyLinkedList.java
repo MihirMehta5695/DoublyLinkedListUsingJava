@@ -379,6 +379,12 @@ public class DoublyLinkedList
 			{
 				if(p.data==key)
 				{
+					if(p.data==key)
+					{
+						deleteAtEnd();
+						return;
+						
+					}//end of if stmt
 					temp=p.prev;
 					temp.next=p.next;
 					temp=p.next;
@@ -398,31 +404,8 @@ public class DoublyLinkedList
 						
 					}//end of if stmt
 					
-					if(p.next==null)
-					{
-						if(p.data==key)
-						{
-							temp=p.prev;
-							temp.next=p.next;
-							temp=p.next;
-							temp.prev=p.prev;
-							p=null;
-							return;
-							
-						}//end of if stmt
-						
-						else
-						{
-							
-							System.out.println("Error : no such node with given value exists");
-							return;
-							
-						}//end of else stmt
-						
-					}//end of if stmt
-					
-					
-												
+					System.out.println("No value exists in List!");
+																	
 				}//end of else statement
 				
 			}//end of while loop
@@ -432,7 +415,7 @@ public class DoublyLinkedList
 		else
 		{
 			
-			System.out.println("Error : Either the List is not created or the Lit is Empty");
+			System.out.println("Error : Either the List is not created or the List is Empty");
 						
 		}//end of else stmt
 		
